@@ -1,16 +1,38 @@
-# React + Vite
+# React + Appwrite Blog App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern blogging web application built with **React**, **Tailwind CSS**, and **Appwrite Cloud**.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* **Frontend:** React, Tailwind CSS
+* **Backend as a Service:** Appwrite (Authentication, Database, Storage)
+* **Build Tool:** Vite
 
-## React Compiler
+## 🛠️ Environment Variables Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+To run this project locally, create a `.env` file in your root directory based on the `.env.sample` template:
 
-## Expanding the ESLint configuration
+\`\`\`env
+VITE_APPWRITE_URL="https://cloud.appwrite.io/v1"
+VITE_APPWRITE_PROJECT_ID="your_project_id"
+VITE_APPWRITE_DATABASE_ID="your_database_id"
+VITE_APPWRITE_TABLE_ID="your_table_id"
+VITE_APPWRITE_BUCKET_ID="your_bucket_id"
+\`\`\`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🏃 Getting Started
+
+1. Clone the repository:
+   \`\`\`bash
+   git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   \`\`\`
+
+2. Install dependencies:
+   \`\`\`bash
+   npm install
+   \`\`\`
+
+3. Run the development server:
+   \`\`\`bash
+   npm run dev
+   \`\`\`
