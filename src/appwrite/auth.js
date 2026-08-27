@@ -8,7 +8,49 @@ export class AuthService {
         this.client
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId);
-        this.account = new Account(this.client)          
+        this.account = new Account(this.client)
+    }
+
+    async createAccount({ email, password, name }) {
+        // eslint-disable-next-line no-useless-catch
+        try {
+            const userAccount = await this.account.create(ID.unique(), email, password, name);
+            if(userAccount) {
+                //Call another method
+                return this.login({email, password})
+            } else {
+                return userAccount;
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async login({email, password}) {
+        // eslint-disable-next-line no-useless-catch
+        try {
+            return await this.account.createEmailPasswordSession(email, password);
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getCurrentUser() {
+        try {
+            return await this.account.get()
+        } catch (error) {
+            console.log("Appwrite service :: getCurrentUser :: error", error);
+        }
+
+        return null;
+    }
+
+    async logout() {
+        try {
+            return await this.account.deleteSessions();
+        } catch (error) {
+             console.log("Appwrite service :: logout :: error", error);
+        }
     }
 
 }
