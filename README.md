@@ -24,7 +24,7 @@ VITE_APPWRITE_BUCKET_ID="your_bucket_id"
 
 1. Clone the repository:
    \`\`\`bash
-   git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   git clone https://github.com/awaishussainsoomro/blogger.git
    \`\`\`
 
 2. Install dependencies:
