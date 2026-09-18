@@ -1,16 +1,39 @@
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import authService from "./appwrite/auth";
+import { login, logout } from "./store/authSlice";
 
-import './App.css'
+import "./App.css";
+import { Header, Footer } from "./components";
+import { Outlet } from "react-router";
 
 function App() {
- 
-  console.log(import.meta.env.VITE_APPWRITE_TABLE_ID);
-  
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
-  return (
-    <>
-    <h1>Hello</h1>
-    </>
-  )
+  useEffect(() => {
+    authService.getCurrentUser()
+      .then((userData) => {
+        if (userData) {
+          dispatch(login({ userData }));
+        } else {
+          dispatch(logout());
+        }
+      })
+      .finally(() => setLoading(false));
+  }, [dispatch]);
+
+  return !loading ? (
+    <div>
+      <div>
+        <Header />
+        <main>
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </div>
+  ) : null;
 }
 
-export default App
+export default App;
