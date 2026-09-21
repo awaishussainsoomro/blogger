@@ -19,10 +19,8 @@ function Login() {
       const session = await authService.login(data);
       if (session) {
         const useData = await authService.getCurrentUser();
-        if (useData) {
-          dispatch(authLogin(useData));
-          navigate("/");
-        }
+        if (useData) dispatch(authLogin(useData));
+        navigate("/")
       }
     } catch (error) {
       setError(error.message || "Invalid credentials. Please try again.");
@@ -70,11 +68,7 @@ function Login() {
                 type="password"
                 placeholder="Enter your password"
                 {...register("password", {
-                    required: true,
-                    minLength: {
-                        value: 6,
-                        message: "Password must be at least 6 characters long"
-                    }
+                    required: true
                 })}
                 />
                 <Button type="submit" className="w-full">Sign in</Button>
