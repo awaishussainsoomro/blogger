@@ -16,20 +16,18 @@ export class Service {
 
     async createPost({ title, slug, content, featuredImage, userId, status }) {
         try {
-            return await this.databases.createDocument({
-                databaseId: conf.appwriteDatabseID,
-                tableId: conf.appwriteTableID,
-                documentId: slug,
-                data: {
+            return await this.databases.createDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                slug,
+                {
                     title,
                     content,
                     featuredImage,
                     status,
-                    userId
+                    userId,
                 }
-            }
-            );
-
+            )
         } catch (error) {
             console.log("Appwrite service :: createPost :: error", error);
         }
@@ -69,11 +67,11 @@ export class Service {
 
     async getPost(slug) {
         try {
-            return await this.databases.getDocument({
-                databaseId: conf.appwriteDatabseID,
-                tableId: conf.appwriteTableID,
-                documentId: slug
-            });
+            return await this.databases.getDocument(
+                conf.appwriteDatabseID,
+                conf.appwriteTableID,
+                slug
+            );
         } catch (error) {
             console.log("Appwrite service :: getPost :: error", error);
             return false
@@ -84,9 +82,9 @@ export class Service {
         try {
             return await this.databases.listDocuments({
                 databaseId: conf.appwriteDatabseID,
-                tableId: conf.appwriteTableID,
+                collectionId:conf.appwriteCollectionId,
                 queries
-            });
+        });
         } catch (error) {
             console.log("Appwrite service :: getPosts :: error", error);
             return false
