@@ -27,5 +27,5 @@ export {
     Signup,
     AuthLayout,
     RTE,
-    PostForm
+    PostForm,
 }
