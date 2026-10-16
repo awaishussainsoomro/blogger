@@ -3,7 +3,8 @@ import { useForm, useWatch } from "react-hook-form";
 import { Button, Input, Select, RTE } from "../index";
 import appwriteService from "../../appwrite/config";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addPost, editPosts } from '../../store/postsSlice'
 
 function PostForm({ post }) {
   const { register, handleSubmit, control, setValue, getValues } = useForm({
@@ -15,6 +16,7 @@ function PostForm({ post }) {
     },
   });
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
@@ -32,6 +34,7 @@ function PostForm({ post }) {
             });
 
             if (dbPost) {
+                dispatch(editPosts(dbPost))
                 navigate(`/post/${dbPost.$id}`);
             }
         } else {
@@ -43,7 +46,8 @@ function PostForm({ post }) {
                 const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
 
                 if (dbPost) {
-                    navigate(`/post/${dbPost.$id}`);
+                  dispatch(addPost(dbPost))
+                  navigate(`/post/${dbPost.$id}`);
                 }
             }
         }

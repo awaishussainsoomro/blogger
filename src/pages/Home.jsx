@@ -1,23 +1,28 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import appwriteService from '../appwrite/config'
 import { Container, PostCard } from '../components'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import {setPosts} from '../store/postsSlice'
 
 function Home() {
-    const [posts, setPosts] = useState([])
-    // 1. Grab current logged-in status from Redux store
+    // const [posts, setPosts] = useState([])
+    const dispatch = useDispatch()
+
     const authStatus = useSelector((state) => state.auth.status)
+
+    const posts = useSelector((state) => (state.posts.posts))
+
 
     useEffect(() => {
         // 2. ONLY fetch posts if the user is actually logged in!
         if (authStatus) {
             appwriteService.getPosts().then((posts) => {
                 if (posts) {
-                    setPosts(posts.documents || posts.rows)
+                    dispatch(setPosts(posts.documents || posts.rows))
                 }
             })
         }
-    }, [authStatus])
+    }, [authStatus, dispatch])
 
     // 3. Fallback UI when logged out or no posts exist
     if (!authStatus || posts.length === 0) {
